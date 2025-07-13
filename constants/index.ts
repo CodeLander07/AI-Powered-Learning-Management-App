@@ -12,12 +12,16 @@ export const subjects = [
 ];
 
 export const subjectsColors = {
-  science: "#E5D0FF",
-  maths: "#FFDA6E",
-  language: "#BDE7FF",
-  coding: "#FFC8E4",
-  history: "#FFECC8",
-  economics: "#C8FFDF",
+    science: "#E5D0FF",
+      maths: "#FFDA6E",
+      language: "#BDE7FF",
+      coding: "#FFC8E4",
+      history: "#FFECC8",
+      economics: "#C8FFDF",
+      geography: "#A3FFD8",
+      psychology: "#FFD6E0",
+      business: "#D6E0FF",
+      politics: "#FFE0A3",
 };
 
 export const voices = {

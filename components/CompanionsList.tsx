@@ -1,5 +1,5 @@
 
-"use client";
+// "use client";
 import {
   Table,
   TableBody,
@@ -26,7 +26,7 @@ interface CompanionListProps {
 const CompanionsList = ({title,companions,ClassNames}:CompanionListProps) => {
   return (
   <article className={cn('companion-list', ClassNames)}>
-    <h2 className="font-bold text-3xl">Recent Sessions</h2>
+    <h2 className="font-bold text-3xl">{title}</h2>
   <Table>
   <TableHeader>
     <TableRow>

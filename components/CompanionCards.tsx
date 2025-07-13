@@ -39,7 +39,7 @@ const CompanionCards = ({id,name,topic,subject,duration,color} : CompanionCardsP
       href={`/companion/${id}`} 
       className="w-full"
       >
-        <button className="btn-primary w-full justify-center">Launch Soon</button>
+        <button className="btn-primary w-full justify-center">Launch lesson</button>
         </Link>
     </article>
   )
