@@ -10,12 +10,14 @@ const Navbar = () => {
         <Link href="/">
         <div className='flex items-center gap-2.5 cursor-pointer'>
             <Image 
-                src="/images/logo.svg"
+                src="/icons/cap.svg"
                 alt="Converso Logo"
                 width={46}
                 height={46} 
                 />
+                <h1>PathWise</h1>
         </div>
+        {/* <p className=' ml-5 font-bold'>Your personlaize learning management app</p> */}
         </Link>
         <div className="flex items-center gap-8">
           <Navitems/>

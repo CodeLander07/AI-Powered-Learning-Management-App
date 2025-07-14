@@ -30,52 +30,50 @@ export const voices = {
 };
 
 export const recentSessions = [
-  {
-    id: "1",
-    subject: "science",
-    name: "Neura the Brainy Explorer",
-    topic: "Neural Network of the Brain",
-    duration: 45,
-    color: "#E5D0FF",
+ {
+    "id": "1",
+    "subject": "maths",
+    "name": "Math Mentor",
+    "topic": "Breaking down algebra, geometry, calculus, and statistics into clear, step-by-step explanations with real-life applications.",
+    "duration": 20,
+    "voice": "male",
+    "style": "formal"
   },
   {
-    id: "2",
-    subject: "maths",
-    name: "Countsy the Number Wizard",
-    topic: "Derivatives & Integrals",
-    duration: 30,
-    color: "#FFDA6E",
+    "id": "2",
+    "subject": "language",
+    "name": "Lingo Coach",
+    "topic": "Improving grammar, vocabulary, sentence structure, and comprehension skills in English and other common languages.",
+    "duration": 15,
+    "voice": "female",
+    "style": "casual"
   },
   {
-    id: "3",
-    subject: "language",
-    name: "Verba the Vocabulary Builder",
-    topic: "English Literature",
-    duration: 30,
-    color: "#BDE7FF",
+    "id": "3",
+    "subject": "science",
+    "name": "Science Explorer",
+    "topic": "Explaining core science concepts in physics, chemistry, and biology, using experiments, visuals, and real-world analogies.",
+    "duration": 25,
+    "voice": "male",
+    "style": "formal"
   },
   {
-    id: "4",
-    subject: "coding",
-    name: "Codey the Logic Hacker",
-    topic: "Intro to If-Else Statements",
-    duration: 45,
-    color: "#FFC8E4",
+    "id": "4",
+    "subject": "history",
+    "name": "Time Traveler",
+    "topic": "Guiding through key historical events, timelines, civilizations, revolutions, and global movements in a story-driven way.",
+    "duration": 20,
+    "voice": "female",
+    "style": "casual"
   },
   {
-    id: "5",
-    subject: "history",
-    name: "Memo, the Memory Keeper",
-    topic: "World Wars: Causes & Consequences",
-    duration: 15,
-    color: "#FFECC8",
+    "id": "5",
+    "subject": "economics",
+    "name": "EconoGuide",
+    "topic": "Clarifying concepts like supply and demand, inflation, GDP, markets, and economic systems with practical examples.",
+    "duration": 20,
+    "voice": "male",
+    "style": "formal"
   },
-  {
-    id: "6",
-    subject: "economics",
-    name: "The Market Maestro",
-    topic: "The Basics of Supply & Demand",
-    duration: 10,
-    color: "#C8FFDF",
-  },
+ 
 ];
