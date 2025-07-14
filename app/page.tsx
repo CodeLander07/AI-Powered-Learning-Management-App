@@ -6,6 +6,7 @@ import CompanionsList from '@/components/CompanionsList'
 import { recentSessions } from '@/constants'
 import { getAllCompanions,getRecentSessions } from '@/lib/actions/companion.actions'
 import { getSubjectColor } from '@/lib/utils'
+import BottomFooter from '@/components/BottomFooter'
 
 
 const Page = async () => {
@@ -13,7 +14,7 @@ const Page = async () => {
     const recentSessionsCompanions = await getRecentSessions(10);
 
   return (
-    <main className="mb-18">
+    <main className="mb-16">
       <h1>Popular Companions</h1>
 
         <section className="home-section">
@@ -35,6 +36,7 @@ const Page = async () => {
             />
             <CTA />
         </section>
+        <BottomFooter />
     </main>
   )
 }
