@@ -5,6 +5,9 @@ import { getSubjectColor } from '@/lib/utils';
 import { Search } from 'lucide-react';
 import SearchInput from '@/components/SearchInput';
 import SubjectFilters from '@/components/SubjectFilters';
+import { currentUser } from "@clerk/nextjs/server";
+import { redirect } from 'next/navigation';
+
 
 const CompanionLibrary = async ({searchParams}:SearchParams) => {
 
@@ -12,6 +15,10 @@ const CompanionLibrary = async ({searchParams}:SearchParams) => {
   const subject = filters.subject ? filters.subject:'';
   const topic = filters.topic ? filters.topic:'';
   const companions = await getAllCompanions({subject, topic});  
+  const user = await currentUser();
+  if(!user ){
+    redirect('/sign-in');
+  }
 
 
   return (
