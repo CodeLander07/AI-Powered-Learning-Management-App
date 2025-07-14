@@ -9,11 +9,11 @@ import { getSubjectColor } from '@/lib/utils'
 
 
 const Page = async () => {
-    const companions = await getAllCompanions({ limit: 3 });
+    const companions = await getAllCompanions({ limit: 4 });
     const recentSessionsCompanions = await getRecentSessions(10);
 
   return (
-    <main>
+    <main className="mb-18">
       <h1>Popular Companions</h1>
 
         <section className="home-section">

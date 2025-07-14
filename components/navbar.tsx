@@ -15,7 +15,7 @@ const Navbar = () => {
                 width={46}
                 height={46} 
                 />
-                <h1>PathWise</h1>
+                <h1 className="hidden sm:block">PathWise</h1>
         </div>
         {/* <p className=' ml-5 font-bold'>Your personlaize learning management app</p> */}
         </Link>
