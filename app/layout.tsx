@@ -10,6 +10,7 @@ import {
   UserButton,
 } from "@clerk/nextjs";
 import Navbar from "@/components/navbar";
+import BottomFooter from "@/components/BottomFooter";
 
 const bricolageGrotesque = Bricolage_Grotesque({
   subsets: ["latin"],
@@ -36,6 +37,7 @@ export default function RootLayout({
             <Navbar />
           </header>
           {children}
+    <BottomFooter />
     </ClerkProvider>
         </body>
       </html>

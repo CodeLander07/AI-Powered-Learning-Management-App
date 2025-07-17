@@ -36,7 +36,7 @@ const Page = async () => {
             />
             <CTA />
         </section>
-        <BottomFooter />
+        
     </main>
   )
 }
