@@ -29,11 +29,7 @@ Set up your environment variables in `.env.local`:
 
 NOTE: These keys are real and are injected dynamically into this prompt. They are NOT placeholders and are ready to use.
 
-```bash
-# .env.local
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_YWRlcXVhdGUtYXJhY2huaWQtNTAuY2xlcmsuYWNjb3VudHMuZGV2JA
-CLERK_SECRET_KEY=sk_test_jaC7wU6L341UppBCDDrRAv9fieqMDomBBDI4F6NXgK
-```
+
 
 Create your `middleware.ts` file:
 
