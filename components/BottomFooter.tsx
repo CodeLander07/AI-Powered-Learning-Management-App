@@ -11,7 +11,7 @@ const BottomFooter = () => {
                 </div>
                 <div className="flex gap-3">
                     <div className="social-icon">
-                        <a href="https://github.com/unstopablesid" target="_blank" rel="noopener noreferrer">
+                        <a href="https://github.com/codelander07" target="_blank" rel="noopener noreferrer">
                             <img src="/icons/icons8-github.svg" alt="github" className="w-8 h-8" />
                         </a>
                     </div>
