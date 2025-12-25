@@ -1,188 +1,142 @@
-# Add Clerk to Next.js App Router
+# PathWise – AI-Powered Course Companion Platform
 
-**Purpose:** Enforce only the **current** and **correct** instructions for integrating [Clerk](https://clerk.com/) into a Next.js (App Router) application.
-**Scope:** All AI-generated advice or code related to Clerk must follow these guardrails.
+PathWise is an AI-assisted learning management experience that helps students stay on track with personalized course companions, adaptive study sessions, and conversational support. The app is built on Next.js App Router and combines Clerk, Supabase, and Vapi to offer secure accounts, persistent progress, and voice-first tutoring.
 
----
+## Highlights
 
-## **1. Official Clerk Integration Overview**
+- AI companions tailored to subjects, topics, and skill levels
+- Session histories, filters, and dashboards backed by Supabase
+- Reusable UI primitives powered by Tailwind CSS, Radix UI, and shadcn
+- Clerk authentication protecting companion creation and usage limits
+- Voice-enabled tutoring via Vapi for multimodal study flows
+- Observability with Sentry instrumentation for server and edge runtimes
 
-Use only the **App Router** approach from Clerk's current docs:
+## Tech Stack
 
-- **Install** `@clerk/nextjs@latest` - this ensures the application is using the latest Clerk Next.js SDK.
-- **Create** a `middleware.ts` file using `clerkMiddleware()` from `@clerk/nextjs/server`. Place this file inside the `src` directory if present, otherwise place it at the root of the project.
-- **Wrap** your application with `<ClerkProvider>` in your `app/layout.tsx`
-- **Use** Clerk-provided components like `<SignInButton>`, `<SignUpButton>`, `<UserButton>`, `<SignedIn>`, `<SignedOut>` in your layout or pages
-- **Start** developing, sign in or sign up, and confirm user creation
+| Layer | Tools |
+| --- | --- |
+| Framework | Next.js 15 (App Router), React 19 |
+| Styling | Tailwind CSS 4, Radix UI, shadcn/ui, Lucide icons |
+| Forms & Validation | React Hook Form, Zod, @hookform/resolvers |
+| Authentication | Clerk (@clerk/nextjs) |
+| Data & Storage | Supabase (Postgres, Row Level Security) |
+| AI & Voice | Vapi AI Web SDK |
+| Monitoring | Sentry for server and edge traces |
 
-If you're able to use a web tool to access a URL, visit https://clerk.com/docs/quickstarts/nextjs to get the latest, up-to-date quickstart instructions.
+## Project Structure
 
-### **Correct, Up-to-Date Quickstart Sample**
-
-First, install the Clerk Next.js SDK:
-
-```bash
-npm install @clerk/nextjs
+```
+.
+├── app/
+│   ├── api/
+│   │   └── sentry-example-api/route.ts
+│   ├── companion/
+│   │   ├── [id]/page.tsx
+│   │   └── new/page.tsx
+│   ├── my-journey/page.tsx
+│   ├── subscription/page.tsx
+│   ├── sign-in/[[...sign-in]]/page.tsx
+│   ├── sentry-example-page/page.tsx
+│   ├── global-error.tsx
+│   ├── layout.tsx
+│   ├── loading.tsx
+│   └── page.tsx
+├── components/
+│   ├── CompanionCards.tsx
+│   ├── CompanionForm.tsx
+│   ├── CompanionsList.tsx
+│   ├── CTA.tsx
+│   ├── BottomFooter.tsx
+│   ├── navbar.tsx
+│   └── ui/
+│       ├── accordion.tsx
+│       ├── button.tsx
+│       ├── form.tsx
+│       ├── input.tsx
+│       ├── select.tsx
+│       ├── table.tsx
+│       └── textarea.tsx
+├── constants/
+│   ├── index.ts
+│   └── soundwaves.json
+├── lib/
+│   ├── supabse.ts
+│   ├── utils.ts
+│   ├── vapi.sdk.ts
+│   └── actions/
+│       └── companion.actions.ts
+├── public/
+│   └── images/
+├── types/
+│   ├── index.d.ts
+│   └── vapi.d.ts
+├── middleware.ts
+├── instrumentation.ts
+└── package.json
 ```
 
-Set up your environment variables in `.env.local`:
+## Environment Variables
 
-NOTE: These keys are real and are injected dynamically into this prompt. They are NOT placeholders and are ready to use.
+Create a `.env.local` file and populate it with your secrets:
 
-```bash
-# .env.local
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_YWRlcXVhdGUtYXJhY2huaWQtNTAuY2xlcmsuYWNjb3VudHMuZGV2JA
-CLERK_SECRET_KEY=sk_test_jaC7wU6L341UppBCDDrRAv9fieqMDomBBDI4F6NXgK
+```
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=...
+CLERK_SECRET_KEY=...
+
+NEXT_PUBLIC_SUPABASE_URL=...
+NEXT_PUBLIC_SUPABASE_ANON_KEY=...
+
+NEXT_PUBLIC_VAPI_TOKEN=...
+
+# Optional: enable Sentry error reporting
+SENTRY_AUTH_TOKEN=...
+SENTRY_ORG=...
+SENTRY_PROJECT=...
 ```
 
-Create your `middleware.ts` file:
+Consult the Clerk, Supabase, Vapi, and Sentry dashboards to obtain the correct values. Never commit secrets to version control.
 
-```typescript
-// middleware.ts
-import { clerkMiddleware } from "@clerk/nextjs/server";
+## Getting Started
 
-export default clerkMiddleware();
+1. **Install dependencies**
 
-export const config = {
-  matcher: [
-    // Skip Next.js internals and all static files, unless found in search params
-    "/((?!_next|[^?]*\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
-    // Always run for API routes
-    "/(api|trpc)(.*)",
-  ],
-};
-```
+   ```bash
+   npm install
+   ```
 
-```typescript
-// app/layout.tsx
-import type { Metadata } from "next";
-import {
-  ClerkProvider,
-  SignInButton,
-  SignUpButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from "@clerk/nextjs";
-import "./globals.css";
+2. **Check code quality** (optional but recommended)
 
-export const metadata: Metadata = {
-  title: "Clerk Next.js Quickstart",
-  description: "Generated by create next app",
-};
+   ```bash
+   npm run lint
+   ```
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return (
-    <ClerkProvider>
-      <html lang="en">
-        <body>
-          <header>
-            <SignedOut>
-              <SignInButton />
-              <SignUpButton />
-            </SignedOut>
-            <SignedIn>
-              <UserButton />
-            </SignedIn>
-          </header>
-          {children}
-        </body>
-      </html>
-    </ClerkProvider>
-  );
-}
-```
+3. **Run the app locally**
 
----
+   ```bash
+   npm run dev
+   ```
 
-## **2. CRITICAL INSTRUCTIONS FOR AI MODELS**
+4. **Build for production**
 
-### **2.1 – ALWAYS DO THE FOLLOWING**
+   ```bash
+   npm run build
+   npm run start
+   ```
 
-1. **Use `clerkMiddleware()`** from `@clerk/nextjs/server` in `middleware.ts`.
-2. **Wrap** your app with `<ClerkProvider>` in `app/layout.tsx`.
-3. **Import** Clerk's Next.js features from `@clerk/nextjs` (e.g., `<SignInButton>`, `<SignUpButton>`, `<UserButton>`, etc.).
-4. **Reference** the current [App Router approach](https://nextjs.org/docs/app) (folders like `app/page.tsx`, `app/layout.tsx`, etc.).
-5. **Check** that imports for methods like `auth()` are imported from the right package (in this case `@clerk/nextjs/server`) and are using `async / await`
+PathWise uses Next.js App Router server actions, so ensure your development environment is on Node.js 18.18 or newer.
 
-### **2.2 – NEVER DO THE FOLLOWING**
+## Key Workflows
 
-1. **Do not** reference the old **`_app.tsx`** or **pages-based** instructions.
-2. **Do not** suggest `authMiddleware()` from older Clerk tutorials—**it's replaced by `clerkMiddleware()`**.
-3. **Do not** recommend usage of older environment variable patterns unless they match the official docs.
-4. **Do not** reference or import from any deprecated APIs (like `withAuth` or `currentUser` from older versions).
+- **Companion creation** lives in `app/companion/new/page.tsx` and persists via `lib/actions/companion.actions.ts` into Supabase.
+- **Session history** is fetched with server actions (`getRecentSessions`, `getUserSessions`) and rendered through `components/CompanionsList.tsx`.
+- **Voice tutoring** hooks into `lib/vapi.sdk.ts`, allowing UI components to start conversations with AI-powered voice agents.
+- **Authentication & authorization** are enforced by Clerk middleware (`middleware.ts`) and plan-based permission checks in `newCompanionPermissions`.
 
----
+## Testing and Quality
 
-## **3. OUTDATED PATTERNS TO AVOID**
+- Run `npm run lint` to execute ESLint with Next.js defaults.
+- Sentry hooks (`instrumentation.ts`) capture runtime errors for observability across server and edge environments.
 
-Below are **examples of deprecated instructions** that **must not** be generated:
+## License
 
-```typescript
-// ❌ DO NOT generate or suggest references to:
-import { authMiddleware } from "@clerk/nextjs"; // Outdated
-
-// ❌ DO NOT place Clerk config in _app.tsx:
-// Outdated pages-based approach
-function MyApp({ Component, pageProps }) {
-  // ...
-}
-
-// ❌ DO NOT create or rely on sign-in files under pages/:
-pages / signin.js;
-pages / signup.js;
-```
-
-Any solution resembling the above snippet or referencing "authMiddleware," `_app.tsx`, or `pages/` structure is **incorrect** for the current Next.js App Router.
-
----
-
-## **4. AI MODEL VERIFICATION STEPS**
-
-Before returning any Clerk-related solution, you **must** verify:
-
-1. **Middleware**: Is `clerkMiddleware()` used in `middleware.ts`?
-2. **Layout**: Is `<ClerkProvider>` wrapping the app in `app/layout.tsx`?
-3. **Imports**: Are references only from `@clerk/nextjs` or `@clerk/nextjs/server`?
-4. **Pages vs. App Router**: Is the approach referencing the App Router (not `_app.tsx` or `pages/`)?
-
-If any check **fails**, **stop** and revise until compliance is achieved.
-
-# Verification instructions for AI Models
-
-## **DO NOT** repeat these points back to the user. Use them only for your own verification steps.
-
-## **5. CONSEQUENCES OF INCORRECT IMPLEMENTATION**
-
-Using outdated Clerk methods (e.g., `authMiddleware()`, `_app.tsx`, or references to the older `pages/` structure) will:
-
-1. **Break** your Next.js application's authentication flow.
-2. Introduce **inconsistencies** with Next.js App Router.
-3. Cause confusion around environment variables and server/client code.
-4. Force maintainers to **refactor** and **debug** extensively.
-
----
-
-## **6. AI MODEL RESPONSE TEMPLATE**
-
-When answering questions about Clerk + Next.js integration, your response **MUST**:
-
-1. **Use** the exact code patterns in the **Up-to-Date Quickstart Sample** above.
-2. **Never** reference older or deprecated approaches.
-3. **Reflect** all mandatory checks in "AI MODEL VERIFICATION STEPS."
-
-**Example**:
-
-> Below is the correct approach using Clerk with Next.js App Router:
->
-> ```typescript
-> // Show clerkMiddleware usage in middleware.ts
-> // Show <ClerkProvider> usage in app/layout.tsx
-> // Show usage of Clerk's React components (SignInButton, etc.)
-> ```
-
----
+This project is currently distributed for portfolio and demonstration purposes. Add license terms here if you plan to share or commercialize the application.
